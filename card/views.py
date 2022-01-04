@@ -1,25 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rest_framework import viewsets
+from django.views.generic.list import ListView
 
 from .models import Card
-from .serializers import CardSerializer
 
 from .utility import getData, getDataGpk
-import requests 
-import json
 
 # Create your views here.
 
 # def getData(url, header, page_starting, page_ending, page_data_total, pera_api, title, prefix, img):
 
-def index(request):
-    return HttpResponse("You are on home page ")
+class index(ListView):
+    model = Card
+    paginate_by = 4
+    context_object_name = 'card'
+    template_name = 'home/index.html'
 
 
-class CardApi(viewsets.ModelViewSet):
-    queryset = Card.objects.all()
-    serializer_class = CardSerializer()
 
 def latest(request):
 

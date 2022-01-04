@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="visually-hidden">Heroes examples</h1>
+
+<div class="px-4 py-5 my-5 text-center">
+    <!-- <img class="d-block mx-auto mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+    <h1 class="display-5 fw-bold">Centered hero</h1>
+    <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3" id="btnDetail">Share </button>
+        <!-- <button type="button" class="btn btn-outline-secondary btn-lg px-4" id="btnDetail">Secondary</button> -->
+    </div>
+    </div>
+</div>
+
+<!-- CARDS -->
+<ul class="card-list">
+	
+    {% for data in card %}
+{% comment %} 
+    <img src="{{data.img}}" alt="The Beautiful Game" /> {% endcomment %}
+
+    <li class="card">
+        <a class="card-image"  target="_blank" style="background-image: url({{data.img}});" data-image-full="{{data.img}}">
+            <img src="{{data.img}}" alt="The Beautiful Game" />
+        </a>
+        <a class="card-description"  target="_blank">
+            <h2 id="cardH2">{{data.title}}</h2>
+            <p>google.com</p>
+        </a>
+    </li>
+    
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    {% endif %}
+    <div class="d-flex justify-content-center" style="display:none;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div> 
+    
+</ul>
+
+ 
+<script src="/static/js/jquery-2.2.4.min.js"></script>
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<script src="/static/js/infinite.min.js"></script>
+<script>
+var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+    handler: function(direction) {
+
+},
+offset: 'bottom-in-view',
+
+onBeforePageLoad: function () {
+$('.spinner-border').show();
+},
+onAfterPageLoad: function () {
+$('.spinner-border').hide();
+}
+
+});
+
+</script>  
+
+<!-- JS FOR CARD  --> 
+{% endblock %}
